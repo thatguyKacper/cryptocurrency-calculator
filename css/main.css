@@ -28,7 +28,7 @@ body {
   display: grid;
   grid-template-columns: auto 1fr;
   grid-auto-rows: 1fr;
-  font-size: 3rem;
+  font-size: 2rem;
   text-align: center;
   font-weight: 600;
   padding: 2rem;
@@ -43,6 +43,7 @@ select {
   text-align: center;
   font-weight: 600;
   border: 0;
+  cursor: pointer;
 }
 
 .container input,
@@ -51,7 +52,7 @@ select:focus {
 }
 
 .container input {
-  width: 300px;
+  width: 200px;
 }
 
 .container select {

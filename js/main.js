@@ -1,3 +1,9 @@
+const form = document.querySelector('.app form');
+const fromInput = document.querySelector('[name="from_amount"]');
+const fromSelect = document.querySelector('[name="from_currency"]');
+const toSelect = document.querySelector('[name="to_currency"]');
+const toEl = document.querySelector('.to_amount');
+
 const crypto = {
   bitcoin: 'Bitcoin', //Bitcoin btc
   ethereum: 'Ethereum', //Ethereum eth
@@ -64,3 +70,25 @@ const fiat = {
   xag: 'Silver - Troy Ounce',
   xau: 'Gold - Troy Ounce',
 };
+
+function generateOptionsCrypto(options) {
+  return Object.entries(options)
+    .map(([currencyKey, currencyValue]) => {
+      return `<option value="${currencyKey}">${currencyValue}</option>`;
+    })
+    .join('');
+}
+
+function generateOptionsFiat(all) {
+  return Object.entries(all)
+    .map(([currencyKey, currencyValue]) => {
+      return `<option value="${currencyKey}">${currencyValue}</option>`;
+    })
+    .join('');
+}
+
+const optionsCrypto = generateOptionsCrypto(crypto);
+const optionsFiat = generateOptionsFiat(fiat);
+
+fromSelect.innerHTML = optionsCrypto;
+toSelect.innerHTML = optionsFiat;
