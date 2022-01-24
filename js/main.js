@@ -99,7 +99,7 @@ async function fetchRates(ids = 'bitcoin', vs_currencies = 'usd') {
 
 async function convert(amount, name, price) {
   const rates = await fetchRates(name, price);
-  console.log(rates);
+  // console.log(rates);
   const rate = rates[name][price];
   // console.log(rate);
   const convertedAmount = rate * amount;
@@ -107,8 +107,20 @@ async function convert(amount, name, price) {
   return convertedAmount;
 }
 
+async function handleForm(e) {
+  const rawAmount = await convert(
+    fromInput.value,
+    fromSelect.value,
+    toSelect.value
+  );
+
+  toEl.textContent = rawAmount;
+}
+
 const optionsCrypto = generateOptionsCrypto(crypto);
 const optionsFiat = generateOptionsFiat(fiat);
 
 fromSelect.innerHTML = optionsCrypto;
 toSelect.innerHTML = optionsFiat;
+
+form.addEventListener('input', handleForm);
