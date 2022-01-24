@@ -116,6 +116,14 @@ function formatCurrency(amount, currency) {
   }).format(amount);
 }
 
+function formatPercent(amount) {
+  return Intl.NumberFormat('pl-PL', {
+    style: 'decimal',
+    maximumSignificantDigits: '2',
+    roundingMode: 'expand',
+  }).format(amount);
+}
+
 async function handleForm(e) {
   const rawAmount = await convert(
     fromInput.value,
