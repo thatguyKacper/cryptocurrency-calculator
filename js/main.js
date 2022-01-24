@@ -97,6 +97,16 @@ async function fetchRates(ids = 'bitcoin', vs_currencies = 'usd') {
   return rates;
 }
 
+async function convert(amount, name, price) {
+  const rates = await fetchRates(name, price);
+  console.log(rates);
+  const rate = rates[name][price];
+  // console.log(rate);
+  const convertedAmount = rate * amount;
+  // console.log(`${amount} ${name} is ${convertedAmount} in ${price}`);
+  return convertedAmount;
+}
+
 const optionsCrypto = generateOptionsCrypto(crypto);
 const optionsFiat = generateOptionsFiat(fiat);
 
