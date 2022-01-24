@@ -3,6 +3,7 @@ const fromInput = document.querySelector('[name="from_amount"]');
 const fromSelect = document.querySelector('[name="from_currency"]');
 const toSelect = document.querySelector('[name="to_currency"]');
 const toEl = document.querySelector('.to_amount');
+const toChange = document.querySelector('[class="to_amount change"]');
 const endpoint = 'https://api.coingecko.com/api/v3/simple/price';
 
 const crypto = {
@@ -90,7 +91,7 @@ function generateOptionsFiat(all) {
 
 async function fetchRates(ids = 'bitcoin', vs_currencies = 'usd') {
   const res = await fetch(
-    `${endpoint}?ids=${ids}&vs_currencies=${vs_currencies}`
+    `${endpoint}?ids=${ids}&vs_currencies=${vs_currencies}&include_24hr_change=true`
   );
   const rates = await res.json();
   // console.log(rates);
@@ -101,10 +102,11 @@ async function convert(amount, name, price) {
   const rates = await fetchRates(name, price);
   // console.log(rates);
   const rate = rates[name][price];
+  const change24 = rates[name][`${price}_24h_change`];
   // console.log(rate);
   const convertedAmount = rate * amount;
   // console.log(`${amount} ${name} is ${convertedAmount} in ${price}`);
-  return convertedAmount;
+  return [convertedAmount, change24];
 }
 
 function formatCurrency(amount, currency) {
@@ -121,7 +123,8 @@ async function handleForm(e) {
     toSelect.value
   );
 
-  toEl.textContent = formatCurrency(rawAmount, toSelect.value);
+  toEl.textContent = formatCurrency(rawAmount[0], toSelect.value);
+  toChange.textContent = `${formatPercent(rawAmount[1])} %`;
 }
 
 const optionsCrypto = generateOptionsCrypto(crypto);
