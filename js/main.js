@@ -3,6 +3,7 @@ const fromInput = document.querySelector('[name="from_amount"]');
 const fromSelect = document.querySelector('[name="from_currency"]');
 const toSelect = document.querySelector('[name="to_currency"]');
 const toEl = document.querySelector('.to_amount');
+const endpoint = 'https://api.coingecko.com/api/v3/simple/price';
 
 const crypto = {
   bitcoin: 'Bitcoin', //Bitcoin btc
@@ -85,6 +86,15 @@ function generateOptionsFiat(all) {
       return `<option value="${currencyKey}">${currencyValue}</option>`;
     })
     .join('');
+}
+
+async function fetchRates(ids = 'bitcoin', vs_currencies = 'usd') {
+  const res = await fetch(
+    `${endpoint}?ids=${ids}&vs_currencies=${vs_currencies}`
+  );
+  const rates = await res.json();
+  // console.log(rates);
+  return rates;
 }
 
 const optionsCrypto = generateOptionsCrypto(crypto);
