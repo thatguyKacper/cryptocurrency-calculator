@@ -1,4 +1,4 @@
-const form = document.querySelector('.app form');
+const form = document.querySelector('.container form');
 const fromInput = document.querySelector('[name="from_amount"]');
 const fromSelect = document.querySelector('[name="from_currency"]');
 const toSelect = document.querySelector('[name="to_currency"]');
