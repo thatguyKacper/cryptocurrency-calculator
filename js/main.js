@@ -107,6 +107,13 @@ async function convert(amount, name, price) {
   return convertedAmount;
 }
 
+function formatCurrency(amount, currency) {
+  return Intl.NumberFormat('pl-PL', {
+    style: 'currency',
+    currency,
+  }).format(amount);
+}
+
 async function handleForm(e) {
   const rawAmount = await convert(
     fromInput.value,
@@ -114,7 +121,7 @@ async function handleForm(e) {
     toSelect.value
   );
 
-  toEl.textContent = rawAmount;
+  toEl.textContent = formatCurrency(rawAmount, toSelect.value);
 }
 
 const optionsCrypto = generateOptionsCrypto(crypto);
